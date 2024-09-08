@@ -8,11 +8,13 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/taskCard"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="6dp"
-        app:cardCornerRadius="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="6dp"
         app:contentPadding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,21 +33,21 @@
                 android:id="@+id/taskTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:text="Task Title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_marginBottom="4dp" />
+                android:textStyle="bold" />
 
             <!-- Task Description -->
             <TextView
                 android:id="@+id/taskDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:text="Task Description"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@color/gray"
-                android:layout_marginBottom="8dp" />
+                android:textColor="@color/gray" />
 
             <!-- Task Date -->
             <TextView
