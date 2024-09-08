@@ -5,55 +5,35 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myapplication3.TaskAdapter
+import com.example.to_do_task.databinding.FragmentTaskListBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [taskList.newInstance] factory method to
- * create an instance of this fragment.
- */
 class taskList : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    lateinit var binding: FragmentTaskListBinding
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_task_list, container, false)
+        binding = FragmentTaskListBinding.inflate(layoutInflater)
+
+        val taskList = listOf(
+            TaskModel("Task 1", "Description for Task 1", "01/09/2024"),
+            TaskModel("Task 2", "Description for Task 2", "02/09/2024"),
+            TaskModel("Task 3", "Description for Task 3", "03/09/2024")
+        )
+        binding.tasklist.layoutManager=LinearLayoutManager(requireContext())
+        binding.tasklist.adapter=TaskAdapter(taskList)
+        binding.floatButton.setOnClickListener{
+            findNavController().navigate(R.id.addTaskFragment)
+        }
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment taskList.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            taskList().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+
 }

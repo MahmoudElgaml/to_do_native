@@ -4,6 +4,9 @@ plugins {
 }
 
 android {
+    buildFeatures {
+        viewBinding = true
+    }
     namespace = "com.example.to_do_task"
     compileSdk = 34
 
