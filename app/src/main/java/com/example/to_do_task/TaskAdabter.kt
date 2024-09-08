@@ -1,5 +1,6 @@
 package com.example.myapplication3
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -7,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.to_do_task.TaskModel
 import com.example.to_do_task.databinding.CardTaskBinding
 
-class TaskAdapter(private val taskList: List<TaskModel>) :
+class TaskAdapter(private var taskList: MutableList<TaskModel>) :
     RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
     // ViewHolder class using ViewBinding
@@ -32,5 +33,10 @@ class TaskAdapter(private val taskList: List<TaskModel>) :
     // Return the total number of items in the list
     override fun getItemCount(): Int {
         return taskList.size
+    }
+
+    fun updateList(newList: MutableList<TaskModel>) {
+        taskList = newList
+        notifyDataSetChanged()
     }
 }
