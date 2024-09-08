@@ -23,12 +23,18 @@ class taskList : Fragment() {
     ): View? {
         binding = FragmentTaskListBinding.inflate(layoutInflater)
 
-        val taskList = mutableListOf(
-            TaskModel("Task 1", "Description for Task 1", "01/09/2024"),
-            TaskModel("Task 2", "Description for Task 2", "02/09/2024"),
-            TaskModel("Task 3", "Description for Task 3", "03/09/2024")
+
+        myadapter = TaskAdapter(
+            mutableListOf(),
+            onDelete = {
+                viewModel.deleteTask(it)
+            },
+            onUpdate = {
+                findNavController().navigate(R.id.updateTaskFragment, Bundle().apply {
+                    putSerializable("user", it)
+                })
+            },
         )
-        myadapter = TaskAdapter(mutableListOf())
         binding.tasklist.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = myadapter

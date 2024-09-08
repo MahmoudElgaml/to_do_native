@@ -15,6 +15,17 @@ class TaskViewModel :ViewModel(){
         updatedList.add(task)
         _taskList.value = updatedList
     }
+    fun deleteTask(task:TaskModel){
+        val updatedList = _taskList.value ?: mutableListOf()
+        updatedList.remove(task)
+        _taskList.value=updatedList
+    }
+    fun updateTask(task:TaskModel){
+        val updatedList = _taskList.value ?: mutableListOf()
+        val index = updatedList.indexOfFirst { it.id == task.id }
+        updatedList[index]=task
+        _taskList.value=updatedList
+    }
 
 
 

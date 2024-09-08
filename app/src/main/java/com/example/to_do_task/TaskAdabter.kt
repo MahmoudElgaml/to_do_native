@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.to_do_task.TaskModel
 import com.example.to_do_task.databinding.CardTaskBinding
 
-class TaskAdapter(private var taskList: MutableList<TaskModel>) :
+class TaskAdapter(private var taskList: MutableList<TaskModel>,val onDelete:(TaskModel)->Unit,val onUpdate:(TaskModel)->Unit) :
     RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
     // ViewHolder class using ViewBinding
@@ -23,6 +23,14 @@ class TaskAdapter(private var taskList: MutableList<TaskModel>) :
     // Bind the data to the views for each item in the list
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val currentTask = taskList[position]
+          holder.binding.apply {
+              updateButton.setOnClickListener{
+                  onUpdate(currentTask)
+              }
+              deleteButton.setOnClickListener {
+                  onDelete(currentTask)
+              }
+          }
         holder.binding.apply {
             taskTitle.text = currentTask.title
             taskDescription.text = currentTask.description
