@@ -53,6 +53,7 @@ class taskList : Fragment() {
         viewModel.taskList.observe(viewLifecycleOwner) {
             myadapter.updateList(it)
 
+
         }
     }
 
