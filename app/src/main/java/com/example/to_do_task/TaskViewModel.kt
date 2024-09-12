@@ -1,30 +1,32 @@
 package com.example.to_do_task
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.task.TaskDao
+import com.example.task.TaskDatabase
+import kotlinx.coroutines.launch
 
-class TaskViewModel :ViewModel(){
-    private  val _taskList=MutableLiveData<MutableList<TaskModel>>()
-    val taskList: LiveData<MutableList<TaskModel>> get() = _taskList
+class TaskViewModel(application: Application) : AndroidViewModel(application){
+  private  val taskDao:TaskDao
     init {
-        _taskList.value= mutableListOf()
+         taskDao=TaskDatabase.getDatabase(application).taskDao()
     }
-    fun addTask(task: TaskModel) {
-        val updatedList = _taskList.value ?: mutableListOf()
-        updatedList.add(task)
-        _taskList.value = updatedList
+    val allTasks: LiveData<MutableList<TaskModel>> = taskDao.getAllTasks()
+
+     fun insertTask(task: TaskModel)= viewModelScope.launch{
+        taskDao.insert(task)
     }
-    fun deleteTask(task:TaskModel){
-        val updatedList = _taskList.value ?: mutableListOf()
-        updatedList.remove(task)
-        _taskList.value=updatedList
+
+     fun updateTask(task: TaskModel) =viewModelScope.launch{
+        taskDao.update(task)
     }
-    fun updateTask(task:TaskModel){
-        val updatedList = _taskList.value ?: mutableListOf()
-        val index = updatedList.indexOfFirst { it.id == task.id }
-        updatedList[index]=task
-        _taskList.value=updatedList
+
+     fun deleteTask(task: TaskModel)=viewModelScope.launch {
+        taskDao.delete(task)
     }
 
 

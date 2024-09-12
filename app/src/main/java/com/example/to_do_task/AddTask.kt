@@ -35,7 +35,7 @@ lateinit var  taskModel: TaskModel
            val date= binding
                .dateEditText.hint.toString()
             taskModel=TaskModel(title = taskTitle, description = taskDescription, date = date)
-            viewModel.addTask(taskModel)
+            viewModel.insertTask(taskModel)
             findNavController().popBackStack()
 
         }

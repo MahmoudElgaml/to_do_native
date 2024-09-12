@@ -21,9 +21,17 @@ class taskList : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentTaskListBinding.inflate(layoutInflater)
+        binding = FragmentTaskListBinding.inflate(inflater,container,false)
 
 
+
+
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         myadapter = TaskAdapter(
             mutableListOf(),
             onDelete = {
@@ -39,18 +47,11 @@ class taskList : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = myadapter
         }
-
-
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         binding.floatButton.setOnClickListener {
             findNavController().navigate(R.id.addTaskFragment)
         }
 
-        viewModel.taskList.observe(viewLifecycleOwner) {
+        viewModel.allTasks.observe(viewLifecycleOwner) {
             myadapter.updateList(it)
 
 
